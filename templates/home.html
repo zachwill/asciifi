@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+{% endblock %}
+
+
+{% block main %}
+
+<!-- Instructions... -->
+<div class="container">
+  <div class="row">
+
+    <div class="span5 info">
+      {{ lipsum(1, min=15, max=20) }}
+      {{ lipsum(1, min=15, max=20) }}
+      {{ lipsum(1, min=15, max=20) }}
+    </div>
+
+    <div class="span11 polaroid pull-right">
+      <div class="video"></div>
+    </div>
+
+  </div>
+</div>
+{% include "application.html" %}
+{% endblock %}

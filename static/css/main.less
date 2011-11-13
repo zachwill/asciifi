@@ -1,0 +1,102 @@
+@import "bootstrap/mixins.less";
+
+@orange: #e96450;
+@blue: darken(#469bcb, 8%);
+@brown: #454336;
+@beige: #fff5e6;
+@light_beige: lighten(@beige, 10%);
+@chocolate: #3e3d35;
+@tan: #f6f3e0;
+@background: #fffdfb;
+
+.custom-highlight{
+    background: @orange;
+    color: #fff;
+    text-shadow: -1px 1px 1px darken(@orange, 15%);
+}
+
+/* Apply custom highlight */
+::-moz-selection{ .custom-highlight; }
+::selection { .custom-highlight; }
+
+textarea{
+    resize: vertical;
+}
+
+body{
+    background: @background;
+}
+
+header{
+    padding-top: 50px;
+}
+
+a{
+    color: @blue;
+    &:hover{
+        color: @orange;
+    }
+}
+
+#main .container{
+    margin-bottom: 60px;
+}
+
+.logo{
+    background: url(/static/img/pikshur.png) no-repeat center center;
+    display: block;
+    height: 200px;
+    text-indent: -999em;
+}
+
+.info{
+    margin-top: 30px;
+    p{
+        margin-bottom: 25px;
+    }
+}
+
+.polaroid.pull-right{
+    background: lighten(@beige, 2%);
+    border: 1px solid darken(@tan, 5%);
+    .box-shadow(1px 1px 3px fadeout(@brown, 50%));
+    float: right;
+    width: 620px;
+}
+
+.video{
+    background: #333;
+    border: 1px solid @background;
+    height: 350px;
+    margin: 30px auto 120px;
+    width: 560px;
+}
+
+.photo{
+    background: @blue;
+    height: 400px;
+}
+
+.tabs > li > a:hover{
+    color: @blue;
+}
+.tabs .active > a, .tabs .active > a:hover {
+    background-color: @background;
+}
+
+.page-header{
+    margin-bottom: 20px;
+}
+
+.film-roll{
+    background: #333;
+    height: 120px;
+    margin-top: 20px;
+}
+
+footer{
+    border: 0;
+    margin-bottom: 20px;
+    margin-top: 0;
+    padding-top: 0;
+}
