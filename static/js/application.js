@@ -44,7 +44,7 @@
       var file, _fn, _i, _len;
       _fn = function(file) {
         var reader;
-        reader = new FileReader();
+        reader = new FileReader;
         reader.onload = function(event) {
           var name, result;
           name = file.name;

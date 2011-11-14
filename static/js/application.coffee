@@ -10,7 +10,7 @@ class DropZone
   drop: (event) ->
     files = event.originalEvent.dataTransfer.files
     new ReadFiles(files)
-    return false
+    false
 
 
 class Upload
@@ -27,7 +27,7 @@ class Upload
     )
     upload.click( (event) ->
       input.click()
-      return false
+      false
     )
 
 
@@ -38,7 +38,7 @@ class ReadFiles
   constructor: (files) ->
     for file in files
       do (file) ->
-        reader = new FileReader()
+        reader = new FileReader
         reader.onload = (event) ->
           name = file.name
           result = event.target.result
