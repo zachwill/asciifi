@@ -72,12 +72,13 @@
       image = new Image;
       image.src = result;
       image.onload = function() {
-        var ascii, ctx, data, max_height;
-        max_height = Math.floor(.3 * max_width);
+        var ascii, ctx, data, max_height, ratio;
+        ratio = image.height / image.width;
+        max_height = Math.floor(max_width * ratio);
         ctx = document.createElement('canvas').getContext('2d');
         ctx.drawImage(image, 0, 0, max_width, max_height);
         data = ctx.getImageData(0, 0, max_width, max_height).data;
-        ascii = new Asciify(data, max_width);
+        ascii = new Asciify(data, max_width, ratio);
         return console.log(ascii.art);
       };
     }
@@ -87,12 +88,12 @@
     /*
       Turn an image into Ascii text. The height of the output is determined
       by the 8x5 dimensions of the bounding box.
-      */    function Asciify(data, max_width) {
-      var blue, characters, green, height, height_range, letter, max_height, num, red, width, width_range, _i, _j, _k, _l, _len, _len2, _ref, _ref2, _results, _results2;
+      */    function Asciify(data, max_width, ratio) {
+      var alpha, blue, characters, green, height, height_range, letter, max_height, num, red, width, width_range, _i, _j, _k, _l, _len, _len2, _ref, _ref2, _results, _results2;
       if (max_width == null) {
         max_width = 80;
       }
-      max_height = Math.floor(.3 * max_width);
+      max_height = Math.floor(max_width * ratio);
       _ref = [
         (function() {
           _results = [];
@@ -110,8 +111,8 @@
         for (_l = 0, _len2 = width_range.length; _l < _len2; _l++) {
           width = width_range[_l];
           num = (height * max_width + width) * 4;
-          _ref2 = [data[num], data[num + 1], data[num + 2]], red = _ref2[0], green = _ref2[1], blue = _ref2[2];
-          letter = new AsciiCharacter(red, green, blue);
+          _ref2 = [data[num], data[num + 1], data[num + 2], data[num + 3]], red = _ref2[0], green = _ref2[1], blue = _ref2[2], alpha = _ref2[3];
+          letter = new AsciiCharacter(red, green, blue, alpha);
           characters.push(letter.value);
         }
         characters.push('\n');
@@ -123,9 +124,12 @@
   AsciiCharacter = (function() {
     /*
       Return the Ascii character representation for RGB input.
-      */    function AsciiCharacter(red, green, blue) {
+      */    function AsciiCharacter(red, green, blue, alpha) {
       var ascii, brightness;
       ascii = "@GCLftli;:,. ";
+      if (alpha === 0 || alpha === void 0) {
+        return this.value = ' ';
+      }
       brightness = (3 * red + 4 * green + blue) >>> 3;
       this.value = ascii[Math.floor(brightness / 256 * ascii.length)];
     }
