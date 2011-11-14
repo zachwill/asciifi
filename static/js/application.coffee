@@ -17,7 +17,6 @@ class Upload
   ###
   Upload files and clear out the resulting FileList.
   ###
-
   constructor: (selector) ->
     input = $(selector)
     upload = input.siblings('a')
@@ -27,8 +26,8 @@ class Upload
       @value = ""
     )
     upload.click( (event) ->
-        input.click()
-        return false
+      input.click()
+      return false
     )
 
 
@@ -36,7 +35,6 @@ class ReadFiles
   ###
   Read the image files and create new images.
   ###
-
   constructor: (files) ->
     for file in files
       do (file) ->
@@ -53,7 +51,6 @@ class ImageFile
   ###
   Create a new thumbnail for a newly dropped or uploaded image file.
   ###
-
   constructor: (@name, @result) ->
     ascii = new Asciify(result)
     console.log ascii.art
@@ -64,17 +61,13 @@ class Asciify
   Turn an image into Ascii text. The height of the output is determined
   by the 8x5 dimensions of the bounding box.
   ###
-
-  constructor: (data, max_width=80) ->
-    image = new Image
-    image.src = data
+  constructor: (image_data, max_width=80) ->
     max_height = Math.floor(.3 * max_width)
-    ctx = document.getElementById('canvas').getContext('2d')
-    ctx.drawImage(image, 0, 0, max_width, max_height)
-    data = ctx.getImageData(0, 0, max_width, max_height).data
+    data = @create_canvas_image(image_data, max_width, max_height)
+    [height_range, width_range] = [[1..max_height], [1..max_width]]
     characters = []
-    for height in [1..max_height]
-      for width in [1..max_width]
+    for height in height_range
+      for width in width_range
         num = (height * max_width + width) * 4
         [red, green, blue] = [data[num], data[num + 1], data[num + 2]]
         letter = new AsciiCharacter(red, green, blue)
@@ -82,8 +75,19 @@ class Asciify
       characters.push('\n')
     @art = characters.join('')
 
+  create_canvas_image: (image_data, max_width, max_height) ->
+    image = new Image
+    image.src = image_data
+    ctx = document.getElementById('canvas').getContext('2d')
+    ctx.drawImage(image, 0, 0, max_width, max_height)
+    data = ctx.getImageData(0, 0, max_width, max_height).data
+    return data
+
 
 class AsciiCharacter
+  ###
+  Return the Ascii character representation for RGB input.
+  ###
   constructor: (red, green, blue) ->
     # TODO: Ascii variants
     ascii = "@8CLftli;:,. "
