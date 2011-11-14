@@ -63,8 +63,8 @@
   <script src="/static/js/libs/bootstrap-dropdown.js"></script>
   <script src="/static/js/libs/bootstrap-tabs.js"></script>
 
-  {% block js %}{% endblock %}
-
+  <!-- Add the application's JS -->
+  <script src="/static/js/application.js" type="text/javascript"></script>
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
   <script>
@@ -75,9 +75,9 @@
   </script>
 
 
-  <!-- Prompt IE 6-7 users to install Chrome Frame.
+  <!-- Prompt IE 6-8 users to install Chrome Frame.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
-  <!--[if lte IE 7 ]>
+  <!--[if lte IE 8 ]>
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
     <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
