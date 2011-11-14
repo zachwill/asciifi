@@ -64,12 +64,22 @@
   ImageFile = (function() {
     /*
       Create a new thumbnail for a newly dropped or uploaded image file.
-      */    function ImageFile(name, result) {
-      var ascii;
-      this.name = name;
-      this.result = result;
-      ascii = new Asciify(result);
-      console.log(ascii.art);
+      */    function ImageFile(name, result, max_width) {
+      var image;
+      if (max_width == null) {
+        max_width = 80;
+      }
+      image = new Image;
+      image.src = result;
+      image.onload = function() {
+        var ascii, ctx, data, max_height;
+        max_height = Math.floor(.3 * max_width);
+        ctx = document.getElementById('canvas').getContext('2d');
+        ctx.drawImage(image, 0, 0, max_width, max_height);
+        data = ctx.getImageData(0, 0, max_width, max_height).data;
+        ascii = new Asciify(data, max_width);
+        return console.log(ascii.art);
+      };
     }
     return ImageFile;
   })();
@@ -77,13 +87,12 @@
     /*
       Turn an image into Ascii text. The height of the output is determined
       by the 8x5 dimensions of the bounding box.
-      */    function Asciify(image_data, max_width) {
-      var blue, characters, data, green, height, height_range, letter, max_height, num, red, width, width_range, _i, _j, _k, _l, _len, _len2, _ref, _ref2, _results, _results2;
+      */    function Asciify(data, max_width) {
+      var blue, characters, green, height, height_range, letter, max_height, num, red, width, width_range, _i, _j, _k, _l, _len, _len2, _ref, _ref2, _results, _results2;
       if (max_width == null) {
         max_width = 80;
       }
       max_height = Math.floor(.3 * max_width);
-      data = this.create_canvas_image(image_data, max_width, max_height);
       _ref = [
         (function() {
           _results = [];
@@ -109,15 +118,6 @@
       }
       this.art = characters.join('');
     }
-    Asciify.prototype.create_canvas_image = function(image_data, max_width, max_height) {
-      var ctx, data, image;
-      image = new Image;
-      image.src = image_data;
-      ctx = document.getElementById('canvas').getContext('2d');
-      ctx.drawImage(image, 0, 0, max_width, max_height);
-      data = ctx.getImageData(0, 0, max_width, max_height).data;
-      return data;
-    };
     return Asciify;
   })();
   AsciiCharacter = (function() {
@@ -125,7 +125,7 @@
       Return the Ascii character representation for RGB input.
       */    function AsciiCharacter(red, green, blue) {
       var ascii, brightness;
-      ascii = "@8CLftli;:,. ";
+      ascii = "@GCLftli;:,. ";
       brightness = (3 * red + 4 * green + blue) >>> 3;
       this.value = ascii[Math.floor(brightness / 256 * ascii.length)];
     }
