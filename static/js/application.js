@@ -74,7 +74,7 @@
       image.onload = function() {
         var ascii, ctx, data, max_height;
         max_height = Math.floor(.3 * max_width);
-        ctx = document.getElementById('canvas').getContext('2d');
+        ctx = document.createElement('canvas').getContext('2d');
         ctx.drawImage(image, 0, 0, max_width, max_height);
         data = ctx.getImageData(0, 0, max_width, max_height).data;
         ascii = new Asciify(data, max_width);
