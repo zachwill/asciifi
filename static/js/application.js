@@ -21,21 +21,18 @@
     /*
       Upload files and clear out the resulting FileList.
       */    function Upload(selector) {
-      var input, label;
+      var input, upload;
       input = $(selector);
-      label = input.parent('label');
+      upload = input.siblings('a');
       input.change(function() {
         var files;
         files = this.files;
         new ReadFiles(files);
         return this.value = "";
-      }).click(function(event) {
-        return event.stopPropagation();
       });
-      label.click(function() {
-        if ($.browser.mozilla) {
-          return input.click();
-        }
+      upload.click(function(event) {
+        input.click();
+        return false;
       });
     }
     return Upload;

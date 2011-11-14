@@ -21,17 +21,15 @@ class Upload
 
   constructor: (selector) ->
     input = $(selector)
-    label = input.parent('label')
+    upload = input.siblings('a')
     input.change( ->
       files = @files
       new ReadFiles(files)
       @value = ""
-    ).click( (event) ->
-      event.stopPropagation()
     )
-    label.click( ->
-      if $.browser.mozilla
+    upload.click( (event) ->
         input.click()
+        return false
     )
 
 
