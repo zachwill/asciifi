@@ -1,5 +1,5 @@
 (function() {
-  var Asciify, DropZone, ImageFile, ReadFiles, Upload;
+  var AsciiCharacter, Asciify, DropZone, ImageFile, ReadFiles, Upload;
   DropZone = (function() {
     /*
       Handle drag and drop functionality.
@@ -65,9 +65,11 @@
     /*
       Create a new thumbnail for a newly dropped or uploaded image file.
       */    function ImageFile(name, result) {
+      var ascii;
       this.name = name;
       this.result = result;
-      console.log("ohai " + name + " " + result);
+      ascii = new Asciify(result);
+      console.log(ascii.art);
     }
     return ImageFile;
   })();
@@ -76,7 +78,7 @@
       Turn an image into Ascii text. The height of the output is determined
       by the 8x5 dimensions of the bounding box.
       */    function Asciify(data, max_width) {
-      var characters, ctx, height, image, max_height, num, width;
+      var blue, characters, ctx, green, height, image, letter, max_height, num, red, width, _ref;
       if (max_width == null) {
         max_width = 80;
       }
@@ -87,22 +89,27 @@
       ctx.drawImage(image, 0, 0, max_width, max_height);
       data = ctx.getImageData(0, 0, max_width, max_height).data;
       characters = [];
-      for (height = 0; 0 <= max_height ? height < max_height : height > max_height; 0 <= max_height ? height++ : height--) {
-        for (width = 0; 0 <= max_width ? width < max_width : width > max_width; 0 <= max_width ? width++ : width--) {
+      for (height = 1; 1 <= max_height ? height <= max_height : height >= max_height; 1 <= max_height ? height++ : height--) {
+        for (width = 1; 1 <= max_width ? width <= max_width : width >= max_width; 1 <= max_width ? width++ : width--) {
           num = (height * max_width + width) * 4;
-          characters.push(this.ascii_char(data[num], data[num + 1], data[num + 2]));
+          _ref = [data[num], data[num + 1], data[num + 2]], red = _ref[0], green = _ref[1], blue = _ref[2];
+          letter = new AsciiCharacter(red, green, blue);
+          characters.push(letter.value);
         }
         characters.push('\n');
       }
-      chararacters.join('');
+      this.art = characters.join('');
     }
-    Asciify.prototype.ascii_char = function(red, green, blue) {
-      var ascii, brightness;
-      ascii = "@GCLftli;:,. ";
-      brightness = 3 * red + 4 * green + blue;
-      return ascii[Math.floor(brightness / 256 * ascii.length)];
-    };
     return Asciify;
+  })();
+  AsciiCharacter = (function() {
+    function AsciiCharacter(red, green, blue) {
+      var ascii, brightness;
+      ascii = "@8CLftli;:,. ";
+      brightness = (3 * red + 4 * green + blue) >>> 3;
+      this.value = ascii[Math.floor(brightness / 256 * ascii.length)];
+    }
+    return AsciiCharacter;
   })();
   (function() {
     new DropZone('.dropzone');

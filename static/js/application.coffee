@@ -2,7 +2,6 @@ class DropZone
   ###
   Handle drag and drop functionality.
   ###
-
   constructor: (selector) ->
     selector = $(selector)
     selector.bind('dragover', -> false)
@@ -56,7 +55,8 @@ class ImageFile
   ###
 
   constructor: (@name, @result) ->
-    console.log "ohai #{name} #{result}"
+    ascii = new Asciify(result)
+    console.log ascii.art
 
 
 class Asciify
@@ -73,18 +73,22 @@ class Asciify
     ctx.drawImage(image, 0, 0, max_width, max_height)
     data = ctx.getImageData(0, 0, max_width, max_height).data
     characters = []
-    for height in [0...max_height]
-      for width in [0...max_width]
+    for height in [1..max_height]
+      for width in [1..max_width]
         num = (height * max_width + width) * 4
-        characters.push @ascii_char(data[num], data[num + 1], data[num + 2])
+        [red, green, blue] = [data[num], data[num + 1], data[num + 2]]
+        letter = new AsciiCharacter(red, green, blue)
+        characters.push letter.value
       characters.push('\n')
-    chararacters.join('')
+    @art = characters.join('')
 
-  ascii_char: (red, green, blue) ->
+
+class AsciiCharacter
+  constructor: (red, green, blue) ->
     # TODO: Ascii variants
-    ascii = "@GCLftli;:,. "
-    brightness = 3 * red + 4 * green + blue
-    ascii[Math.floor(brightness / 256 * ascii.length)]
+    ascii = "@8CLftli;:,. "
+    brightness = (3 * red + 4 * green + blue) >>> 3
+    @value = ascii[Math.floor(brightness / 256 * ascii.length)]
 
 
 do ->
