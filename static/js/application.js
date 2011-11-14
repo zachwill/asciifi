@@ -11,7 +11,7 @@
     }
     DropZone.prototype.drop = function(event) {
       var files;
-      files = event.files;
+      files = event.originalEvent.dataTransfer.files;
       new ReadFiles(files);
       return false;
     };
@@ -21,11 +21,21 @@
     /*
       Upload files and clear out the resulting FileList.
       */    function Upload(selector) {
-      $(selector).change(function() {
+      var input, label;
+      input = $(selector);
+      label = input.parent('label');
+      input.change(function() {
         var files;
         files = this.files;
         new ReadFiles(files);
         return this.value = "";
+      }).click(function(event) {
+        return event.stopPropagation();
+      });
+      label.click(function() {
+        if ($.browser.mozilla) {
+          return input.click();
+        }
       });
     }
     return Upload;

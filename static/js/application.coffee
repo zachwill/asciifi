@@ -9,7 +9,7 @@ class DropZone
             .bind('drop', @drop)
 
   drop: (event) ->
-    files = event.files
+    files = event.originalEvent.dataTransfer.files
     new ReadFiles(files)
     return false
 
@@ -20,10 +20,18 @@ class Upload
   ###
 
   constructor: (selector) ->
-    $(selector).change( ->
-      files = this.files
+    input = $(selector)
+    label = input.parent('label')
+    input.change( ->
+      files = @files
       new ReadFiles(files)
-      this.value = ""
+      @value = ""
+    ).click( (event) ->
+      event.stopPropagation()
+    )
+    label.click( ->
+      if $.browser.mozilla
+        input.click()
     )
 
 
