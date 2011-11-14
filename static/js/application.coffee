@@ -19,11 +19,12 @@ class Upload
   Upload files and clear out the resulting FileList.
   ###
 
-  constructor: ->
-    input = document.getElementByID('files')
-    files = input.files
-    new ReadFiles(files)
-    input.value = ""
+  constructor: (selector) ->
+    $(selector).change( ->
+      files = this.files
+      new ReadFiles(files)
+      this.value = ""
+    )
 
 
 class ReadFiles
@@ -49,7 +50,7 @@ class ImageFile
   ###
 
   constructor: (@name, @result) ->
-    "ohai image"
+    console.log "ohai #{name} #{result}"
 
 
 class Asciify
@@ -58,7 +59,9 @@ class Asciify
   by the 8x5 dimensions of the bounding box.
   ###
 
-  constructor: (image, max_width=80) ->
+  constructor: (data, max_width=80) ->
+    image = new Image
+    image.src = data
     max_height = Math.floor(.3 * max_width)
     ctx = document.getElementById('canvas').getContext('2d')
     ctx.drawImage(image, 0, 0, max_width, max_height)
@@ -72,6 +75,12 @@ class Asciify
     chararacters.join('')
 
   ascii_char: (red, green, blue) ->
-    ascii = "@GLftli;:,.  "
+    # TODO: Ascii variants
+    ascii = "@GCLftli;:,. "
     brightness = 3 * red + 4 * green + blue
-    ascii[Math.floor(brightness / 256 * 13)]
+    ascii[Math.floor(brightness / 256 * ascii.length)]
+
+
+do ->
+  new DropZone('.dropzone')
+  new Upload('#files')

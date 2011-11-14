@@ -20,12 +20,13 @@
   Upload = (function() {
     /*
       Upload files and clear out the resulting FileList.
-      */    function Upload() {
-      var files, input;
-      input = document.getElementByID('files');
-      files = input.files;
-      new ReadFiles(files);
-      input.value = "";
+      */    function Upload(selector) {
+      $(selector).change(function() {
+        var files;
+        files = this.files;
+        new ReadFiles(files);
+        return this.value = "";
+      });
     }
     return Upload;
   })();
@@ -59,7 +60,7 @@
       */    function ImageFile(name, result) {
       this.name = name;
       this.result = result;
-      "ohai image";
+      console.log("ohai " + name + " " + result);
     }
     return ImageFile;
   })();
@@ -67,11 +68,13 @@
     /*
       Turn an image into Ascii text. The height of the output is determined
       by the 8x5 dimensions of the bounding box.
-      */    function Asciify(image, max_width) {
-      var characters, ctx, data, height, max_height, num, width;
+      */    function Asciify(data, max_width) {
+      var characters, ctx, height, image, max_height, num, width;
       if (max_width == null) {
         max_width = 80;
       }
+      image = new Image;
+      image.src = data;
       max_height = Math.floor(.3 * max_width);
       ctx = document.getElementById('canvas').getContext('2d');
       ctx.drawImage(image, 0, 0, max_width, max_height);
@@ -88,10 +91,14 @@
     }
     Asciify.prototype.ascii_char = function(red, green, blue) {
       var ascii, brightness;
-      ascii = "@GLftli;:,.  ";
+      ascii = "@GCLftli;:,. ";
       brightness = 3 * red + 4 * green + blue;
-      return ascii[Math.floor(brightness / 256 * 13)];
+      return ascii[Math.floor(brightness / 256 * ascii.length)];
     };
     return Asciify;
+  })();
+  (function() {
+    new DropZone('.dropzone');
+    return new Upload('#files');
   })();
 }).call(this);
