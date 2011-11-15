@@ -1,5 +1,5 @@
 (function() {
-  var AsciiCharacter, Asciify, DropZone, ImageFile, ReadFiles, Upload;
+  var AsciiCharacter, Asciify, DropZone, ImageFile, Ratio, ReadFiles, Upload;
   DropZone = (function() {
     /*
       Handle drag and drop functionality.
@@ -64,44 +64,56 @@
   ImageFile = (function() {
     /*
       Create a new thumbnail for a newly dropped or uploaded image file.
-      */    function ImageFile(name, result, max_width) {
+      */    function ImageFile(name, result, character_max) {
       var image;
-      if (max_width == null) {
-        max_width = 80;
+      if (character_max == null) {
+        character_max = 80;
       }
       image = new Image;
       image.src = result;
       image.onload = function() {
-        var ascii, ctx, data, max_height, ratio;
-        ratio = image.height / image.width;
-        max_height = Math.floor(max_width * ratio);
+        var ascii, ctx, data, height, ratio, width, _ref;
+        ratio = new Ratio(image.height, image.width, character_max);
+        _ref = ratio.dimensions, width = _ref[0], height = _ref[1];
         ctx = document.createElement('canvas').getContext('2d');
-        ctx.drawImage(image, 0, 0, max_width, max_height);
-        data = ctx.getImageData(0, 0, max_width, max_height).data;
-        ascii = new Asciify(data, max_width, ratio);
+        ctx.drawImage(image, 0, 0, width, height);
+        data = ctx.getImageData(0, 0, width, height).data;
+        ascii = new Asciify(data, width, height);
         return console.log(ascii.art);
       };
     }
     return ImageFile;
   })();
+  Ratio = (function() {
+    /*
+      Determine image ratio when converting to Ascii art.
+      */    function Ratio(height, width, character_max) {
+      var ratio;
+      if (width > height) {
+        ratio = height / width;
+        this.dimensions = [character_max, Math.floor(character_max * ratio)];
+      } else {
+        ratio = width / height;
+        this.dimensions = [Math.floor(character_max * ratio), character_max];
+      }
+      return;
+    }
+    return Ratio;
+  })();
   Asciify = (function() {
     /*
       Turn an image into Ascii text. The height of the output is determined
       by the 8x5 dimensions of the bounding box.
-      */    function Asciify(data, max_width, ratio) {
-      var alpha, blue, characters, green, height, height_range, letter, max_height, num, red, width, width_range, _i, _j, _k, _l, _len, _len2, _ref, _ref2, _results, _results2;
-      if (max_width == null) {
-        max_width = 80;
-      }
-      max_height = Math.floor(max_width * ratio);
+      */    function Asciify(data, output_width, output_height) {
+      var alpha, blue, characters, green, height, height_range, i, letter, offset, red, width, width_range, _i, _j, _k, _l, _len, _len2, _ref, _ref2, _results, _results2;
       _ref = [
         (function() {
           _results = [];
-          for (var _i = 1; 1 <= max_height ? _i <= max_height : _i >= max_height; 1 <= max_height ? _i++ : _i--){ _results.push(_i); }
+          for (var _i = 1; 1 <= output_height ? _i <= output_height : _i >= output_height; 1 <= output_height ? _i++ : _i--){ _results.push(_i); }
           return _results;
         }).apply(this), (function() {
           _results2 = [];
-          for (var _j = 1; 1 <= max_width ? _j <= max_width : _j >= max_width; 1 <= max_width ? _j++ : _j--){ _results2.push(_j); }
+          for (var _j = 1; 1 <= output_width ? _j <= output_width : _j >= output_width; 1 <= output_width ? _j++ : _j--){ _results2.push(_j); }
           return _results2;
         }).apply(this)
       ], height_range = _ref[0], width_range = _ref[1];
@@ -110,8 +122,15 @@
         height = height_range[_k];
         for (_l = 0, _len2 = width_range.length; _l < _len2; _l++) {
           width = width_range[_l];
-          num = (height * max_width + width) * 4;
-          _ref2 = [data[num], data[num + 1], data[num + 2], data[num + 3]], red = _ref2[0], green = _ref2[1], blue = _ref2[2], alpha = _ref2[3];
+          offset = (height * output_width + width) * 4;
+          _ref2 = (function() {
+            var _ref2, _results3;
+            _results3 = [];
+            for (i = offset, _ref2 = offset + 3; offset <= _ref2 ? i <= _ref2 : i >= _ref2; offset <= _ref2 ? i++ : i--) {
+              _results3.push(data[i]);
+            }
+            return _results3;
+          })(), red = _ref2[0], green = _ref2[1], blue = _ref2[2], alpha = _ref2[3];
           letter = new AsciiCharacter(red, green, blue, alpha);
           characters.push(letter.value);
         }

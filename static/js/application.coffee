@@ -51,17 +51,31 @@ class ImageFile
   ###
   Create a new thumbnail for a newly dropped or uploaded image file.
   ###
-  constructor: (name, result, max_width=80) ->
+  constructor: (name, result, character_max=80) ->
     image = new Image
     image.src = result
     image.onload = ->
-      ratio = image.height / image.width
-      max_height = Math.floor(max_width * ratio)
+      ratio = new Ratio(image.height, image.width, character_max)
+      [width, height] = ratio.dimensions
       ctx = document.createElement('canvas').getContext('2d')
-      ctx.drawImage(image, 0, 0, max_width, max_height)
-      data = ctx.getImageData(0, 0, max_width, max_height).data
-      ascii = new Asciify(data, max_width, ratio)
+      ctx.drawImage(image, 0, 0, width, height)
+      data = ctx.getImageData(0, 0, width, height).data
+      ascii = new Asciify(data, width, height)
       console.log ascii.art
+
+
+class Ratio
+  ###
+  Determine image ratio when converting to Ascii art.
+  ###
+  constructor: (height, width, character_max) ->
+    if width > height
+      ratio = height / width
+      @dimensions = [character_max, Math.floor(character_max * ratio)]
+    else
+      ratio = width / height
+      @dimensions = [Math.floor(character_max * ratio), character_max]
+    return
 
 
 class Asciify
@@ -69,14 +83,13 @@ class Asciify
   Turn an image into Ascii text. The height of the output is determined
   by the 8x5 dimensions of the bounding box.
   ###
-  constructor: (data, max_width=80, ratio) ->
-    max_height = Math.floor(max_width * ratio)
-    [height_range, width_range] = [[1..max_height], [1..max_width]]
+  constructor: (data, output_width, output_height) ->
+    [height_range, width_range] = [[1..output_height], [1..output_width]]
     characters = []
     for height in height_range
       for width in width_range
-        num = (height * max_width + width) * 4
-        [red, green, blue, alpha] = [data[num], data[num + 1], data[num + 2], data[num + 3]]
+        offset = (height * output_width + width) * 4
+        [red, green, blue, alpha] = (data[i] for i in [offset..offset+3])
         letter = new AsciiCharacter(red, green, blue, alpha)
         characters.push letter.value
       characters.push('\n')
