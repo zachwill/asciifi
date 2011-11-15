@@ -55,7 +55,7 @@ class ImageFile
     image = new Image
     image.src = result
     image.onload = ->
-      ratio = new Ratio(image.height, image.width, character_max)
+      ratio = new Ratio(image.width, image.height, character_max)
       [width, height] = ratio.dimensions
       ctx = document.createElement('canvas').getContext('2d')
       ctx.drawImage(image, 0, 0, width, height)
@@ -68,11 +68,14 @@ class Ratio
   ###
   Determine image ratio when converting to Ascii art.
   ###
-  constructor: (height, width, character_max) ->
+  constructor: (width, height, character_max) ->
     if width > height
       ratio = height / width
       @dimensions = [character_max, Math.floor(character_max * ratio)]
     else
+      if height > width
+        # Conform to 8x5 dimensions.
+        character_max *= .625
       ratio = width / height
       @dimensions = [Math.floor(character_max * ratio), character_max]
     return
@@ -80,8 +83,7 @@ class Ratio
 
 class Asciify
   ###
-  Turn an image into Ascii text. The height of the output is determined
-  by the 8x5 dimensions of the bounding box.
+  Turn an image into Ascii text.
   ###
   constructor: (data, output_width, output_height) ->
     [height_range, width_range] = [[1..output_height], [1..output_width]]

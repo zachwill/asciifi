@@ -73,7 +73,7 @@
       image.src = result;
       image.onload = function() {
         var ascii, ctx, data, height, ratio, width, _ref;
-        ratio = new Ratio(image.height, image.width, character_max);
+        ratio = new Ratio(image.width, image.height, character_max);
         _ref = ratio.dimensions, width = _ref[0], height = _ref[1];
         ctx = document.createElement('canvas').getContext('2d');
         ctx.drawImage(image, 0, 0, width, height);
@@ -87,12 +87,15 @@
   Ratio = (function() {
     /*
       Determine image ratio when converting to Ascii art.
-      */    function Ratio(height, width, character_max) {
+      */    function Ratio(width, height, character_max) {
       var ratio;
       if (width > height) {
         ratio = height / width;
         this.dimensions = [character_max, Math.floor(character_max * ratio)];
       } else {
+        if (height > width) {
+          character_max *= .625;
+        }
         ratio = width / height;
         this.dimensions = [Math.floor(character_max * ratio), character_max];
       }
@@ -102,8 +105,7 @@
   })();
   Asciify = (function() {
     /*
-      Turn an image into Ascii text. The height of the output is determined
-      by the 8x5 dimensions of the bounding box.
+      Turn an image into Ascii text.
       */    function Asciify(data, output_width, output_height) {
       var alpha, blue, characters, green, height, height_range, i, letter, offset, red, width, width_range, _i, _j, _k, _l, _len, _len2, _ref, _ref2, _results, _results2;
       _ref = [
