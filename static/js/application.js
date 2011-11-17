@@ -23,7 +23,7 @@
       */    function Upload(selector) {
       var input, upload;
       input = $(selector);
-      upload = input.siblings('a');
+      upload = input.siblings('.upload');
       input.change(function() {
         var files;
         files = this.files;

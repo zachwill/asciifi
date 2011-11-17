@@ -19,7 +19,7 @@ class Upload
   ###
   constructor: (selector) ->
     input = $(selector)
-    upload = input.siblings('a')
+    upload = input.siblings('.upload')
     input.change( ->
       files = @files
       new ReadFiles(files)
