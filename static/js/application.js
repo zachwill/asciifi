@@ -1,5 +1,5 @@
 (function() {
-  var AsciiCharacter, Asciify, DropZone, ImageFile, Ratio, ReadFiles, Upload;
+  var AsciiCharacter, Asciify, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, Upload;
   DropZone = (function() {
     /*
       Handle drag and drop functionality.
@@ -36,6 +36,52 @@
       });
     }
     return Upload;
+  })();
+  LinkButton = (function() {
+    /*
+      Functionality for when the external link button is clicked.
+      */    function LinkButton(selector) {
+      var link;
+      link = $(selector);
+      link.click(function(event) {
+        var input, value;
+        input = $('.image-link');
+        value = input.val();
+        new ExternalImage(value);
+        return false;
+      }).popover({
+        offset: 10,
+        placement: "below",
+        trigger: 'manual'
+      }).hover(function(event) {
+        var popover, self, tabs;
+        self = $(this);
+        tabs = $('.tabs');
+        popover = $('.popover.below');
+        if (!popover.length) {
+          self.popover('show');
+        }
+        return tabs.click(function() {
+          return self.popover('hide');
+        });
+      });
+    }
+    return LinkButton;
+  })();
+  ExternalImage = (function() {
+    /*
+      Get the base64 encoding for external images.
+      */    function ExternalImage(image) {
+      var component;
+      component = encodeURIComponent(image);
+      $.ajax({
+        url: "http://img64.com/?q=" + component,
+        dataType: "jsonp"
+      }).then(function(data) {
+        return new ImageFile(image, data);
+      });
+    }
+    return ExternalImage;
   })();
   ReadFiles = (function() {
     /*
@@ -158,6 +204,7 @@
   })();
   (function() {
     new DropZone('.dropzone');
-    return new Upload('#files');
+    new Upload('#files');
+    return new LinkButton('.link');
   })();
 }).call(this);

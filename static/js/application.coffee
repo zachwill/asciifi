@@ -31,6 +31,45 @@ class Upload
     )
 
 
+class LinkButton
+  ###
+  Functionality for when the external link button is clicked.
+  ###
+  constructor: (selector) ->
+    link = $(selector)
+    link.click( (event) ->
+      input = $('.image-link')
+      value = input.val()
+      new ExternalImage(value)
+      false
+    ).popover(
+      offset: 10
+      placement: "below"
+      trigger: 'manual'
+    ).hover( (event) ->
+      self = $(this)
+      tabs = $('.tabs')
+      popover = $('.popover.below')
+      if not popover.length
+        self.popover('show')
+      tabs.click(-> self.popover('hide'))
+    )
+
+
+class ExternalImage
+  ###
+  Get the base64 encoding for external images.
+  ###
+  constructor: (image) ->
+    component = encodeURIComponent(image)
+    $.ajax(
+      url: "http://img64.com/?q=#{component}"
+      dataType: "jsonp"
+    ).then( (data) ->
+      new ImageFile(image, data)
+    )
+
+
 class ReadFiles
   ###
   Read the image files and create new images.
@@ -115,3 +154,4 @@ class AsciiCharacter
 do ->
   new DropZone('.dropzone')
   new Upload('#files')
+  new LinkButton('.link')
