@@ -52,6 +52,8 @@ class LinkButton
       popover = $('.popover.below')
       if not popover.length
         self.popover('show')
+        content = self.siblings('.hidden').html()
+        $('.popover.below').find('.content').html(content)
       tabs.click(-> self.popover('hide'))
     )
 

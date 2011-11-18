@@ -54,12 +54,14 @@
         placement: "below",
         trigger: 'manual'
       }).hover(function(event) {
-        var popover, self, tabs;
+        var content, popover, self, tabs;
         self = $(this);
         tabs = $('.tabs');
         popover = $('.popover.below');
         if (!popover.length) {
           self.popover('show');
+          content = self.siblings('.hidden').html();
+          $('.popover.below').find('.content').html(content);
         }
         return tabs.click(function() {
           return self.popover('hide');
