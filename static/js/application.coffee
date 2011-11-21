@@ -102,7 +102,7 @@ class ImageFile
       ctx.drawImage(image, 0, 0, width, height)
       data = ctx.getImageData(0, 0, width, height).data
       ascii = new Asciify(data, width, height)
-      console.log ascii.art
+      $('.photo').val(ascii.art)
 
 
 class Ratio

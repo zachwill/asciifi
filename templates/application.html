@@ -1,10 +1,10 @@
 <div class="container">
   <div class="page-header">
-    <h1>pikshur <small>asciify all the images</small></h1>
+    <h1>Asciifi <small>all the images</small></h1>
   </div>
 
   <div class="row">
-    <div class="span10 photo"></div>
+    <textarea class="span10 photo" spellcheck=false></textarea>
 
     <div class="span6 controls">
       <ul class="tabs" data-tabs="tabs">
@@ -26,15 +26,20 @@
           desktop onto this page.</p>
 
           <div class="row buttons">
-            <a href="#" class="btn link span2" title="External image">Link</a>
             <a href="#" class="btn upload span2">Upload</a>
+            <a href="#" class="btn link span2" title="External image">Link</a>
+
+            <!-- Hidden files input -->
             <input name="files" id="files" type="file" multiple />
+
+            <!-- Pop-over external image template -->
             <div class="hidden">
               <div class="row external-image">
                 <input type="text" class="span4 image-link" placeholder="http://something.com/image.png"/>
                 <a href="#" class="btn pull-right">Asciify</a>
               </div>
             </div>
+
           </div>
 
         </div>

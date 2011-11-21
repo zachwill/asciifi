@@ -127,7 +127,7 @@
         ctx.drawImage(image, 0, 0, width, height);
         data = ctx.getImageData(0, 0, width, height).data;
         ascii = new Asciify(data, width, height);
-        return console.log(ascii.art);
+        return $('.photo').val(ascii.art);
       };
     }
     return ImageFile;
