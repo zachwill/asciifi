@@ -10,6 +10,7 @@ class DropZone
   drop: (event) ->
     files = event.originalEvent.dataTransfer.files
     new ReadFiles(files)
+    $('html, body').animate(scrollTop: 710)
     false
 
 

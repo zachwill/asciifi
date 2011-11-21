@@ -13,6 +13,9 @@
       var files;
       files = event.originalEvent.dataTransfer.files;
       new ReadFiles(files);
+      $('html, body').animate({
+        scrollTop: 710
+      });
       return false;
     };
     return DropZone;
