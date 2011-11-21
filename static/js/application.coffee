@@ -94,7 +94,6 @@ class ImageFile
   ###
   constructor: (name, result, character_max=80) ->
     image = new Image
-    window._image = image
     image.src = result
     image.onload = ->
       ratio = new Ratio(image.width, image.height, character_max)
@@ -104,7 +103,7 @@ class ImageFile
       data = ctx.getImageData(0, 0, width, height).data
       ascii = new Asciify(data, width, height)
       $('.photo').val(ascii.art)
-
+      window._image = name: name, result: result
 
 class Ratio
   ###
@@ -168,7 +167,7 @@ class Setup
     ###
     constructor: ->
       new Usability
-      new ImageFile('Github', '/static/img/zach.png')
+      new ImageFile('zachwill', '/static/img/zach.png')
 
 
 do ->

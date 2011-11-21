@@ -118,7 +118,6 @@
         character_max = 80;
       }
       image = new Image;
-      window._image = image;
       image.src = result;
       image.onload = function() {
         var ascii, ctx, data, height, ratio, width, _ref;
@@ -128,7 +127,11 @@
         ctx.drawImage(image, 0, 0, width, height);
         data = ctx.getImageData(0, 0, width, height).data;
         ascii = new Asciify(data, width, height);
-        return $('.photo').val(ascii.art);
+        $('.photo').val(ascii.art);
+        return window._image = {
+          name: name,
+          result: result
+        };
       };
     }
     return ImageFile;
@@ -220,7 +223,7 @@
         What happens when a user first visits the site.
         */    function Setup() {
       new Usability;
-      new ImageFile('Github', '/static/img/zach.png');
+      new ImageFile('zachwill', '/static/img/zach.png');
     }
     return Setup;
   })();
