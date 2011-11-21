@@ -1,5 +1,5 @@
 (function() {
-  var AsciiCharacter, Asciify, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, Upload;
+  var AsciiCharacter, Asciify, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, Upload, Usability;
   DropZone = (function() {
     /*
       Handle drag and drop functionality.
@@ -204,9 +204,20 @@
     }
     return AsciiCharacter;
   })();
+  Usability = (function() {
+    /*
+        Little usability enhancements.
+        */    function Usability() {
+      $('.photo').click(function() {
+        return $(this).select();
+      });
+    }
+    return Usability;
+  })();
   (function() {
     new DropZone('.dropzone');
     new Upload('#files');
-    return new LinkButton('.link');
+    new LinkButton('.link');
+    return new Usability;
   })();
 }).call(this);

@@ -153,7 +153,16 @@ class AsciiCharacter
     @value = ascii[Math.floor(brightness / 256 * ascii.length)]
 
 
+class Usability
+    ###
+    Little usability enhancements.
+    ###
+    constructor: ->
+      $('.photo').click(-> $(this).select())
+
+
 do ->
   new DropZone('.dropzone')
   new Upload('#files')
   new LinkButton('.link')
+  new Usability
