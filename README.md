@@ -6,40 +6,34 @@ Turn your pictures into ASCII art.
 <pre><code>
 
 
-       ;;;;;                                                                    
-      ;iiiiit                                                                   
-      ;iiiiil                                                                   
-      iiiiiil                                                                   
-     .iiiiiii                                                                   
-     ;iiiiiii,                                                                  
-     iiiiiiiil                                                                  
-     iiiiiiiil                                                                  
-     iiiiiiiil       :;;iii      ;;iiii     tiiiii  iiiii t;;;iiiiiiiil;iiiil   
-    ;iilllllil;     ;iiiiiiil   ;iiiiiii    iiiiil ;iiiil iiiiiiiiiiiiliiiiil   
-    iilllillllt    ;iilllllilf ;iilllliil   iillil iillil iillllllllllliillll   
-    iilllllllll   ;illllllllil iilllllllll  iillil iillil iillllllllliliillll   
-    iillltlllll   iillllllllll illllllllll; illlll illlll illllllllllltilllll   
-   ;illll lllll   illll  lilil llllt lllllf illlll illlll illlllttff   illllt   
-   illlll lllllf  lllll  llllt llllf illllt llllll illlll illlll       illllt   
-   illlll;illllt  llllliii     llllf lllllf llllll illlll illllliiif   illllt   
-   illllllllllll  llllllllll   llllf fttlt  lllllt lllllt illllllllf   illllt   
-   lllllllllllll   llllllllll  llllf        illllt illllt illllllllf   lllllt   
-   lllllllllllll   tlllllllllf llllf        illllt illllt lllllllllG   lllllt   
-  illlllllllllllf    tttlllllt llllf  iiil  illllt illllt lllllllltC   lllllt   
-  illlllllllllllt       tllllt llllt  llllf illllt illllt lllllttfC    lllllt   
-  illllltttllllltliiilt  llllt llllt  llltf illllt illllt lllllt       lllllt   
-  llllltf tlllllt llllliillllt llllliillltf illllt illllt lllllt       lllllt   
-  lllllt   lllllt lllllllllltt llllllllllt  illllt illllt lllllt       lllltt   
- illlllt   llllltfttllllllllt, llllltllltt  lllllt illllt lllllt       lllltt   
- illlllt   ttllllt ttlllllltf  ttlllllltt   illllt illllt lllllt       lllllt   
- ltttttf    tttttt  Lttttttf    tttttttt    lttttt tttttt lttttt       lttttt   
+
+    ;;;;;        :;;;;;,      :;;;;;,      ;;;;;, ;;;;;;, ;;;;;;;;;;;;, ;;:;;,  
+    iiiii       ;;iiiiiii    ;;iiiiiii     iiiiil iiiiiil i;iiiiiiiiiii iiiiii  
+   ;iiiii      ;iiiiiiiiii  ;;iiiiiiiii    iiiiil ;iiiiil iiiiiiiiiiiii iiiiil  
+   ;iiiiit    ;iiiiiiiiiiil ;iiiiiiiiiil   iiiiil iiiiiil iiiiiiiiiiiii iiiiil  
+   iiiiiil    iiiiiiliiiiil iiiiiiiiiiiif  iiiiil iiiiiil iiiiiiiiiiiil iiiiil  
+   iiiiiil   liiiilttliiiil iiiilllliiill  iiiiil iiiiill iiiiilllllllt iiiiil  
+  iiiiiiil   ;iiiil   lilil iiiil  iiiill  iiiiil iiiiilt iiiiil        iiiiil  
+  iillililt  tiilili: tlltf iilil  iiiill  iillil iiililt iillil        iillil  
+  iillllllt   lillliiiil    iilil  lllllf  iillll iillllt iillliiiil    iillil  
+  iilllllll   llllllliill   iilll          iillll illlllf illllllllt    iillll  
+  illl llll    lllllllllll  lllll          llllll illlllf illllllllt    illlll  
+ illll llll     llllllllll  llllt          lllllt illlllf lllllllllt    llllll  
+ illllillllf     tttllllllt llllt  liiilf  lllllt tlllllf lllllllllt    llllll  
+ illlllllllt         lllllt llllt  illllt  lllllt tlllllf llllltttf;    lllllt  
+ llllllllllt iiiiit  lllllt lllll  illllt  lllllt flllllf lllllt        lllllt  
+ llllllllllt llllllllillllt llllll:illllt  lllllt flllllf lllllt        lllllt  
+lllllttllllt lllllllllllllf llllllllllltf  lllllt flllltf lllllt        lllllt  
+illllt tllllf tllllllllllt  lllllllllllt   lllllt tlllltf lllllt        lllllt  
+illltf tllltt ttlllllllltt  tllllllllltf   lllllt illlltt lllllt        lllllt  
+lllltC  tlllt  fttllllltt    tllllllltf    lllllt illlltt lllllt        lllllt  
+ttttt   ttttt    ftttttf      fttttttG     tttttf ttttttf tttttf        tttttt  
 
 
-                                             CCCC CC CCCCCCCC CCCCCCCCCCCCCCC   
-                                             CCCC CC CCCCCCCC CCCCCCCCCCCCCCC   
-                                             CCCCCCCG CCCCCCC CCCCCCCCCCCGCCC   
-                                             CCCCCCCC CCCCCCC CCCCCCCCCCCCCCC   
-                                                                                
-                                                                                
-                                                                                
+                                            CCCC CC GCCCCCCCC CCCCCCCCCCCCCCCC  
+                                            CCCC CC @CCCCCCCC CCCCCCCCCCCCCCCC  
+                                           CCCCCGCCC CCCCCCCC CCCCCCCCCCCCCCCC  
+                                           CCCCCCCCC CCCCCCCC CCCCCCCCCCCCCCCC  
+
+
 </code></pre>
