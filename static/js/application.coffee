@@ -105,6 +105,7 @@ class ImageFile
       $('.photo').val(ascii.art)
       window._image = name: name, result: result
 
+
 class Ratio
   ###
   Determine image ratio when converting to Ascii art.
