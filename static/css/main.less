@@ -1,6 +1,6 @@
 @import "bootstrap/mixins.less";
 
-@blue: darken(#469bcb, 8%);
+@blue: darken(#149fef, 9%);
 @background: #fffdfb;
 @pink: #e61df8;
 
@@ -29,7 +29,7 @@ header{
 a{
     color: @blue;
     &:hover{
-        color: @pink;
+        color: darken(@pink, 5%);
     }
 }
 
@@ -52,7 +52,7 @@ a{
 }
 
 .terminal.pull-right{
-    background: #444;
+    background: #333;
     float: right;
     width: 620px;
 }
@@ -71,8 +71,8 @@ a{
     .box-shadow(none);
     font-size: 10px;
     font-family: monospace;
-    line-height: 1;
     height: 400px;
+    line-height: 1;
     width: 556px !important;
 }
 

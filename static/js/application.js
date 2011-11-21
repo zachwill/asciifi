@@ -1,5 +1,5 @@
 (function() {
-  var AsciiCharacter, Asciify, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, Upload, Usability;
+  var AsciiCharacter, Asciify, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, Setup, Upload, Usability;
   DropZone = (function() {
     /*
       Handle drag and drop functionality.
@@ -73,14 +73,14 @@
   ExternalImage = (function() {
     /*
       Get the base64 encoding for external images.
-      */    function ExternalImage(image) {
+      */    function ExternalImage(image, character_max) {
       var component;
       component = encodeURIComponent(image);
       $.ajax({
         url: "http://img64.com/?q=" + component,
         dataType: "jsonp"
       }).then(function(data) {
-        return new ImageFile(image, data);
+        return new ImageFile(image, data, character_max);
       });
     }
     return ExternalImage;
@@ -118,6 +118,7 @@
         character_max = 80;
       }
       image = new Image;
+      window._image = image;
       image.src = result;
       image.onload = function() {
         var ascii, ctx, data, height, ratio, width, _ref;
@@ -214,10 +215,19 @@
     }
     return Usability;
   })();
+  Setup = (function() {
+    /*
+        What happens when a user first visits the site.
+        */    function Setup() {
+      new Usability;
+      new ImageFile('Github', '/static/img/zach.png');
+    }
+    return Setup;
+  })();
   (function() {
     new DropZone('.dropzone');
     new Upload('#files');
     new LinkButton('.link');
-    return new Usability;
+    return new Setup;
   })();
 }).call(this);

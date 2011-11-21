@@ -62,13 +62,13 @@ class ExternalImage
   ###
   Get the base64 encoding for external images.
   ###
-  constructor: (image) ->
+  constructor: (image, character_max) ->
     component = encodeURIComponent(image)
     $.ajax(
       url: "http://img64.com/?q=#{component}"
       dataType: "jsonp"
     ).then( (data) ->
-      new ImageFile(image, data)
+      new ImageFile(image, data, character_max)
     )
 
 
@@ -94,6 +94,7 @@ class ImageFile
   ###
   constructor: (name, result, character_max=80) ->
     image = new Image
+    window._image = image
     image.src = result
     image.onload = ->
       ratio = new Ratio(image.width, image.height, character_max)
@@ -161,8 +162,17 @@ class Usability
       $('.photo').click(-> $(this).select())
 
 
+class Setup
+    ###
+    What happens when a user first visits the site.
+    ###
+    constructor: ->
+      new Usability
+      new ImageFile('Github', '/static/img/zach.png')
+
+
 do ->
   new DropZone('.dropzone')
   new Upload('#files')
   new LinkButton('.link')
-  new Usability
+  new Setup
