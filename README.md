@@ -1,4 +1,4 @@
-Asciifi
+asciifi
 =======
 
 Turn your pictures into ASCII art.
