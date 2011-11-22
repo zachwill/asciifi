@@ -17,12 +17,6 @@ def home():
     return render_template('home.html')
 
 
-@views.route('/about/')
-def about():
-    """Render the website's about page."""
-    return render_template('about.html')
-
-
 # The functions below should be applicable to all Flask apps.
 
 @views.route('/<file_name>.txt')
