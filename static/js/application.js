@@ -215,8 +215,16 @@
     /*
         Little usability enhancements.
         */    function Usability() {
+      var form;
       $('.photo').click(function() {
         return $(this).select();
+      });
+      form = $('#slider').siblings('form');
+      form.submit(function(event) {
+        var value;
+        value = $(this).find('.width').val();
+        $('#slider').slider('value', value);
+        return false;
       });
     }
     Usability.prototype.photo_font = function(value) {
@@ -247,12 +255,14 @@
         min: 20,
         value: 80,
         change: function(event) {
-          var image, name, result, value, _ref;
-          value = $(this).slider('value');
+          var image, input, name, result, self, value, _ref;
+          self = $(this);
+          value = self.slider('value');
+          input = self.siblings('form').find('input');
+          input.val(value);
           usability.photo_font(value);
           image = window._image;
           _ref = [image.name, image.result], name = _ref[0], result = _ref[1];
-          console.log(name, result, value);
           return new ImageFile(name, result, value);
         }
       });

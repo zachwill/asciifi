@@ -161,6 +161,12 @@ class Usability
     ###
     constructor: ->
       $('.photo').click(-> $(this).select())
+      form = $('#slider').siblings('form')
+      form.submit( (event) ->
+        value = $(this).find('.width').val()
+        $('#slider').slider('value', value)
+        false
+      )
 
     photo_font: (value) ->
       if value > 90
@@ -186,11 +192,13 @@ class Setup
         min: 20,
         value: 80,
         change: (event) ->
-          value = $(this).slider('value')
+          self = $(this)
+          value = self.slider('value')
+          input = self.siblings('form').find('input')
+          input.val(value)
           usability.photo_font(value)
           image = window._image
           [name, result] = [image.name, image.result]
-          console.log name, result, value
           new ImageFile(name, result, value)
       )
       new ImageFile('zachwill', '/static/img/zach.png')
