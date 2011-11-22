@@ -1,5 +1,5 @@
 (function() {
-  var AsciiCharacter, Asciify, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, Setup, Upload, Usability;
+  var AsciiCharacter, Asciify, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, RefreshImage, Setup, Upload, Usability;
   DropZone = (function() {
     /*
       Handle drag and drop functionality.
@@ -205,6 +205,9 @@
       */    function AsciiCharacter(red, green, blue, alpha) {
       var ascii, brightness;
       ascii = "@GCLftli;:,. ";
+      ascii = "#WMBRXVYIti+=;:,. ";
+      ascii = "01 ";
+      ascii = "##XXxxx+++===---;;,,...   ";
       if (alpha === 0 || alpha === void 0) {
         return this.value = ' ';
       }
@@ -212,6 +215,35 @@
       this.value = ascii[Math.floor(brightness / 256 * ascii.length)];
     }
     return AsciiCharacter;
+  })();
+  RefreshImage = (function() {
+    /*
+      Refresh the ASCII art image.
+      */    function RefreshImage(value) {
+      var image, input, name, result, _ref;
+      input = $('input.width');
+      input.val(value);
+      this.photo_font(value);
+      image = window._image;
+      _ref = [image.name, image.result], name = _ref[0], result = _ref[1];
+      new ImageFile(name, result, value);
+    }
+    RefreshImage.prototype.photo_font = function(value) {
+      var size;
+      if (value > 90) {
+        if (value > 110) {
+          size = 6;
+        } else {
+          size = 8;
+        }
+        return $('.photo').css('font-size', "" + size + "px");
+      } else if (value < 50) {
+        return $('.photo').css('font-size', "12px");
+      } else {
+        return $('.photo').css('font-size', '');
+      }
+    };
+    return RefreshImage;
   })();
   Usability = (function() {
     /*
@@ -229,43 +261,22 @@
         return false;
       });
     }
-    Usability.prototype.photo_font = function(value) {
-      var size;
-      if (value > 90) {
-        if (value > 110) {
-          size = 6;
-        } else {
-          size = 8;
-        }
-        return $('.photo').css('font-size', "" + size + "px");
-      } else if (value < 50) {
-        return $('.photo').css('font-size', "12px");
-      } else {
-        return $('.photo').css('font-size', '');
-      }
-    };
     return Usability;
   })();
   Setup = (function() {
     /*
         What happens when a user first visits the site.
         */    function Setup() {
-      var usability;
-      usability = new Usability;
+      new Usability;
       $('#slider').slider({
         max: 120,
         min: 20,
         value: 80,
         change: function(event) {
-          var image, input, name, result, self, value, _ref;
+          var self, value;
           self = $(this);
           value = self.slider('value');
-          input = self.siblings('form').find('input');
-          input.val(value);
-          usability.photo_font(value);
-          image = window._image;
-          _ref = [image.name, image.result], name = _ref[0], result = _ref[1];
-          return new ImageFile(name, result, value);
+          return new RefreshImage(value);
         }
       });
       new ImageFile('zachwill', '/static/img/zach.png');

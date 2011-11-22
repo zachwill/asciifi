@@ -150,11 +150,39 @@ class AsciiCharacter
   constructor: (red, green, blue, alpha) ->
     # TODO: Ascii variants
     ascii = "@GCLftli;:,. "
+    ascii = "#WMBRXVYIti+=;:,. "
+    ascii = "01 "
+    ascii = "##XXxxx+++===---;;,,...   "
     if alpha is 0 or alpha is undefined
       # Then, the pixel is transparent.
       return @value = ' '
     brightness = (3 * red + 4 * green + blue) >>> 3
     @value = ascii[Math.floor(brightness / 256 * ascii.length)]
+
+
+class RefreshImage
+  ###
+  Refresh the ASCII art image.
+  ###
+  constructor: (value) ->
+    input = $('input.width')
+    input.val(value)
+    @photo_font(value)
+    image = window._image
+    [name, result] = [image.name, image.result]
+    new ImageFile(name, result, value)
+
+  photo_font: (value) ->
+    if value > 90
+      if value > 110
+        size = 6
+      else
+        size = 8
+      $('.photo').css('font-size', "#{size}px")
+    else if value < 50
+      $('.photo').css('font-size', "12px")
+    else
+      $('.photo').css('font-size', '')
 
 
 class Usability
@@ -170,25 +198,13 @@ class Usability
         false
       )
 
-    photo_font: (value) ->
-      if value > 90
-        if value > 110
-          size = 6
-        else
-          size = 8
-        $('.photo').css('font-size', "#{size}px")
-      else if value < 50
-        $('.photo').css('font-size', "12px")
-      else
-        $('.photo').css('font-size', '')
-
 
 class Setup
     ###
     What happens when a user first visits the site.
     ###
     constructor: ->
-      usability = new Usability
+      new Usability
       $('#slider').slider(
         max: 120,
         min: 20,
@@ -196,12 +212,7 @@ class Setup
         change: (event) ->
           self = $(this)
           value = self.slider('value')
-          input = self.siblings('form').find('input')
-          input.val(value)
-          usability.photo_font(value)
-          image = window._image
-          [name, result] = [image.name, image.result]
-          new ImageFile(name, result, value)
+          new RefreshImage(value)
       )
       new ImageFile('zachwill', '/static/img/zach.png')
 
