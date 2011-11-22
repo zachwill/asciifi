@@ -148,3 +148,50 @@ footer{
 #canvas{
     display: none;
 }
+
+
+/* jQuery UIaments... */
+
+.ui-corner-all{
+    .border-radius(20px);
+}
+
+.ui-slider{
+    position: relative;
+    text-align: left;
+    .ui-slider-handle{
+        cursor: default;
+        height: 1.2em;
+        position: absolute;
+        width: 1.2em;
+        z-index: 2;
+    }
+}
+
+.ui-slider-horizontal{
+    height: .8em;
+    .ui-slider-handle{
+        margin-left: -.7em;
+        top: -.28em;
+        .box-shadow(1px 1px 1px rgba(0, 0, 0, .25));
+    }
+}
+
+.ui-state-default{
+    .gradientBar(#eee, #ccc);
+    border: 1px solid #444;
+}
+
+.ui-state-active, .ui-state-focus, .ui-state-hover{
+    .gradientBar(lighten(@pink, 20%), @pink);
+    border: 1px solid #444;
+}
+
+.ui-widget{
+    font-size: 1.5em;
+}
+
+.ui-widget-content{
+    border: 1px solid #333;
+    #gradient > .vertical(#666, #333);
+}

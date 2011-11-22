@@ -162,13 +162,37 @@ class Usability
     constructor: ->
       $('.photo').click(-> $(this).select())
 
+    photo_font: (value) ->
+      if value > 90
+        if value > 110
+          size = 6
+        else
+          size = 8
+        $('.photo').css('font-size', "#{size}px")
+      else if value < 50
+        $('.photo').css('font-size', "12px")
+      else
+        $('.photo').css('font-size', '')
+
 
 class Setup
     ###
     What happens when a user first visits the site.
     ###
     constructor: ->
-      new Usability
+      usability = new Usability
+      $('#slider').slider(
+        max: 120,
+        min: 20,
+        value: 80,
+        change: (event) ->
+          value = $(this).slider('value')
+          usability.photo_font(value)
+          image = window._image
+          [name, result] = [image.name, image.result]
+          console.log name, result, value
+          new ImageFile(name, result, value)
+      )
       new ImageFile('zachwill', '/static/img/zach.png')
 
 
