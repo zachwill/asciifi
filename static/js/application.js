@@ -204,10 +204,7 @@
       Return the Ascii character representation for RGB input.
       */    function AsciiCharacter(red, green, blue, alpha) {
       var ascii, brightness;
-      ascii = "@GCLftli;:,. ";
-      ascii = "#WMBRXVYIti+=;:,. ";
-      ascii = "01 ";
-      ascii = "##XXxxx+++===---;;,,...   ";
+      ascii = $('#variants').val();
       if (alpha === 0 || alpha === void 0) {
         return this.value = ' ';
       }
@@ -221,6 +218,7 @@
       Refresh the ASCII art image.
       */    function RefreshImage(value) {
       var image, input, name, result, _ref;
+      value || (value = $('#slider').slider('value'));
       input = $('input.width');
       input.val(value);
       this.photo_font(value);
@@ -278,6 +276,9 @@
           value = self.slider('value');
           return new RefreshImage(value);
         }
+      });
+      $('#variants').change(function() {
+        return new RefreshImage;
       });
       new ImageFile('zachwill', '/static/img/zach.png');
     }

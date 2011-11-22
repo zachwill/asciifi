@@ -148,11 +148,7 @@ class AsciiCharacter
   Return the Ascii character representation for RGB input.
   ###
   constructor: (red, green, blue, alpha) ->
-    # TODO: Ascii variants
-    ascii = "@GCLftli;:,. "
-    ascii = "#WMBRXVYIti+=;:,. "
-    ascii = "01 "
-    ascii = "##XXxxx+++===---;;,,...   "
+    ascii = $('#variants').val()
     if alpha is 0 or alpha is undefined
       # Then, the pixel is transparent.
       return @value = ' '
@@ -165,6 +161,7 @@ class RefreshImage
   Refresh the ASCII art image.
   ###
   constructor: (value) ->
+    value ||= $('#slider').slider('value')
     input = $('input.width')
     input.val(value)
     @photo_font(value)
@@ -214,6 +211,7 @@ class Setup
           value = self.slider('value')
           new RefreshImage(value)
       )
+      $('#variants').change(-> new RefreshImage)
       new ImageFile('zachwill', '/static/img/zach.png')
 
 
