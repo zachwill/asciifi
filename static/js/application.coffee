@@ -94,6 +94,8 @@ class ImageFile
   Create a new thumbnail for a newly dropped or uploaded image file.
   ###
   constructor: (name, result, character_max=80) ->
+    value = $('#slider').slider('value')
+    character_max = value or character_max
     image = new Image
     image.src = result
     image.onload = ->

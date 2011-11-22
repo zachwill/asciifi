@@ -116,10 +116,12 @@
     /*
       Create a new thumbnail for a newly dropped or uploaded image file.
       */    function ImageFile(name, result, character_max) {
-      var image;
+      var image, value;
       if (character_max == null) {
         character_max = 80;
       }
+      value = $('#slider').slider('value');
+      character_max = value || character_max;
       image = new Image;
       image.src = result;
       image.onload = function() {
