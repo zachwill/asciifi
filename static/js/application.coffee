@@ -162,7 +162,7 @@ class RefreshImage
   ###
   constructor: (value) ->
     value ||= $('#slider').slider('value')
-    input = $('input.width')
+    input = $('.width')
     input.val(value)
     @photo_font(value)
     image = window._image
@@ -198,7 +198,7 @@ class Usability
 
 class Setup
     ###
-    What happens when a user first visits the site.
+    Tie up all loose ends for ASCII art functionality.
     ###
     constructor: ->
       new Usability
@@ -215,8 +215,54 @@ class Setup
       new ImageFile('zachwill', '/static/img/zach.png')
 
 
+class CheckFlashPlayer
+  ###
+  Check that Flash is present -- if not, then Popcorn won't work, so
+  a Vimeo iframe should be embedded.
+  ###
+  constructor: ->
+    if not swfobject.hasFlashPlayerVersion('11')
+      $('#video').html("""
+        <iframe src="http://player.vimeo.com/video/31356476?title=0&byline=0"
+                width="560" height="350" frameborder="0" webkitAllowFullScreen
+                allowFullScreen></iframe>
+      """)
+
+
 do ->
   new DropZone('.dropzone')
   new Upload('#files')
   new LinkButton('.link')
   new Setup
+  new CheckFlashPlayer
+
+
+do ->
+  # And, finally, the Popcorn / Vimeo interaction...
+  Popcorn.vimeo('#video', 'http://vimeo.com/31356476')
+
+  .footnote(
+    start: 1, end: 5
+    text: "Hey, it's working!"
+    target: "foo"
+  )
+
+  .footnote(
+    start: 5, end: 10
+    text: "Still working!"
+    target: "foo"
+  )
+
+  .code(
+    start: 6, end: 11
+    onStart: ->
+      $('body').css('background', 'red')
+    onEnd: ->
+      $('body').css('background', 'blue')
+  )
+
+  .footnote(
+    start: 10, end: 15
+    text: "Last of the footnotes"
+    target: "foo"
+  )

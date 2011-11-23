@@ -1,5 +1,5 @@
 (function() {
-  var AsciiCharacter, Asciify, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, RefreshImage, Setup, Upload, Usability;
+  var AsciiCharacter, Asciify, CheckFlashPlayer, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, RefreshImage, Setup, Upload, Usability;
   DropZone = (function() {
     /*
       Handle drag and drop functionality.
@@ -219,7 +219,7 @@
       */    function RefreshImage(value) {
       var image, input, name, result, _ref;
       value || (value = $('#slider').slider('value'));
-      input = $('input.width');
+      input = $('.width');
       input.val(value);
       this.photo_font(value);
       image = window._image;
@@ -263,7 +263,7 @@
   })();
   Setup = (function() {
     /*
-        What happens when a user first visits the site.
+        Tie up all loose ends for ASCII art functionality.
         */    function Setup() {
       new Usability;
       $('#slider').slider({
@@ -284,10 +284,49 @@
     }
     return Setup;
   })();
+  CheckFlashPlayer = (function() {
+    /*
+      Check that Flash is present -- if not, then Popcorn won't work, so
+      a Vimeo iframe should be embedded.
+      */    function CheckFlashPlayer() {
+      if (!swfobject.hasFlashPlayerVersion('11')) {
+        $('#video').html("<iframe src=\"http://player.vimeo.com/video/31356476?title=0&byline=0\"\n        width=\"560\" height=\"350\" frameborder=\"0\" webkitAllowFullScreen\n        allowFullScreen></iframe>");
+      }
+    }
+    return CheckFlashPlayer;
+  })();
   (function() {
     new DropZone('.dropzone');
     new Upload('#files');
     new LinkButton('.link');
-    return new Setup;
+    new Setup;
+    return new CheckFlashPlayer;
+  })();
+  (function() {
+    return Popcorn.vimeo('#video', 'http://vimeo.com/31356476').footnote({
+      start: 1,
+      end: 5,
+      text: "Hey, it's working!",
+      target: "foo"
+    }).footnote({
+      start: 5,
+      end: 10,
+      text: "Still working!",
+      target: "foo"
+    }).code({
+      start: 6,
+      end: 11,
+      onStart: function() {
+        return $('body').css('background', 'red');
+      },
+      onEnd: function() {
+        return $('body').css('background', 'blue');
+      }
+    }).footnote({
+      start: 10,
+      end: 15,
+      text: "Last of the footnotes",
+      target: "foo"
+    });
   })();
 }).call(this);
