@@ -1,5 +1,5 @@
-asciifi
-=======
+[asciifi](http://asciifi.com)
+=============================
 
 Turn your pictures into ASCII art.
 
