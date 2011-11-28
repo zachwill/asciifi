@@ -239,30 +239,33 @@ do ->
 
 do ->
   # And, finally, the Popcorn / Vimeo interaction...
+  song = '/static/img/song'
   Popcorn.vimeo('#video', 'http://vimeo.com/31356476')
 
-  .footnote(
+  .code(
     start: 1, end: 5
-    text: "Hey, it's working!"
-    target: "foo"
+    onStart: ->
+      new ImageFile('delorean', "#{song}/delorean.jpeg")
+      $('html, body').animate(scrollTop: 710)
   )
 
-  .footnote(
+  .code(
     start: 5, end: 10
-    text: "Still working!"
-    target: "foo"
+    onStart: ->
+      new ImageFile('delorean', "#{song}/bennigans.jpeg")
   )
 
   .code(
     start: 6, end: 11
     onStart: ->
       $('body').css('background', 'red')
-    onEnd: ->
-      $('body').css('background', 'blue')
   )
 
-  .footnote(
+  .code(
     start: 10, end: 15
-    text: "Last of the footnotes"
-    target: "foo"
+    onStart: ->
+      new ImageFile('delorean', "#{song}/boba_fett.jpeg")
+      $('body').css('background', '')
+    onEnd: ->
+      console.log "see ya"
   )

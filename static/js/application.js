@@ -303,30 +303,39 @@
     return new CheckFlashPlayer;
   })();
   (function() {
-    return Popcorn.vimeo('#video', 'http://vimeo.com/31356476').footnote({
+    var song;
+    song = '/static/img/song';
+    return Popcorn.vimeo('#video', 'http://vimeo.com/31356476').code({
       start: 1,
       end: 5,
-      text: "Hey, it's working!",
-      target: "foo"
-    }).footnote({
+      onStart: function() {
+        new ImageFile('delorean', "" + song + "/delorean.jpeg");
+        return $('html, body').animate({
+          scrollTop: 710
+        });
+      }
+    }).code({
       start: 5,
       end: 10,
-      text: "Still working!",
-      target: "foo"
+      onStart: function() {
+        return new ImageFile('delorean', "" + song + "/bennigans.jpeg");
+      }
     }).code({
       start: 6,
       end: 11,
       onStart: function() {
         return $('body').css('background', 'red');
-      },
-      onEnd: function() {
-        return $('body').css('background', 'blue');
       }
-    }).footnote({
+    }).code({
       start: 10,
       end: 15,
-      text: "Last of the footnotes",
-      target: "foo"
+      onStart: function() {
+        new ImageFile('delorean', "" + song + "/boba_fett.jpeg");
+        return $('body').css('background', '');
+      },
+      onEnd: function() {
+        return console.log("see ya");
+      }
     });
   })();
 }).call(this);
