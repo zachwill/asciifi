@@ -1,5 +1,5 @@
 (function() {
-  var AsciiCharacter, Asciify, CheckFlashPlayer, DropZone, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, RefreshImage, Setup, Upload, Usability;
+  var AsciiCharacter, Asciify, CheckFlashPlayer, DropZone, ExternalButton, ExternalImage, ImageFile, LinkButton, Ratio, ReadFiles, RefreshImage, Setup, Upload, Usability;
   DropZone = (function() {
     /*
       Handle drag and drop functionality.
@@ -83,7 +83,7 @@
         url: "http://img64.com/?q=" + component,
         dataType: "jsonp"
       }).then(function(data) {
-        return new ImageFile(image, data, character_max);
+        return new ImageFile(image, data.data, character_max);
       });
     }
     return ExternalImage;
@@ -261,11 +261,27 @@
     }
     return Usability;
   })();
+  ExternalButton = (function() {
+    /*
+      Make sure the external link buttons work.
+      */    function ExternalButton() {
+      $('body').on('click', '.external', function(event) {
+        var link;
+        link = $('.image-link').val();
+        if (link) {
+          new ExternalImage(link);
+        }
+        return false;
+      });
+    }
+    return ExternalButton;
+  })();
   Setup = (function() {
     /*
         Tie up all loose ends for ASCII art functionality.
         */    function Setup() {
       new Usability;
+      new ExternalButton;
       $('#slider').slider({
         max: 120,
         min: 20,

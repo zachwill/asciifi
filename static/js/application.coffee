@@ -69,7 +69,7 @@ class ExternalImage
       url: "http://img64.com/?q=#{component}"
       dataType: "jsonp"
     ).then( (data) ->
-      new ImageFile(image, data, character_max)
+      new ImageFile(image, data.data, character_max)
     )
 
 
@@ -196,12 +196,25 @@ class Usability
       )
 
 
+class ExternalButton
+  ###
+  Make sure the external link buttons work.
+  ###
+  constructor: ->
+    $('body').on('click', '.external', (event) ->
+      link = $('.image-link').val()
+      if link then new ExternalImage(link)
+      false
+    )
+
+
 class Setup
     ###
     Tie up all loose ends for ASCII art functionality.
     ###
     constructor: ->
       new Usability
+      new ExternalButton
       $('#slider').slider(
         max: 120,
         min: 20,
