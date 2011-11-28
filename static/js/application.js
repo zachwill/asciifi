@@ -290,7 +290,7 @@
       a Vimeo iframe should be embedded.
       */    function CheckFlashPlayer() {
       if (!swfobject.hasFlashPlayerVersion('11')) {
-        $('#video').html("<iframe src=\"http://player.vimeo.com/video/31356476?title=0&byline=0\"\n        width=\"560\" height=\"350\" frameborder=\"0\" webkitAllowFullScreen\n        allowFullScreen></iframe>");
+        $('#video').html("<iframe src=\"http://player.vimeo.com/video/32772167\"\n        width=\"560\" height=\"350\" frameborder=\"0\" webkitAllowFullScreen\n        allowFullScreen></iframe>");
       }
     }
     return CheckFlashPlayer;
@@ -305,7 +305,7 @@
   (function() {
     var song;
     song = '/static/img/song';
-    return Popcorn.vimeo('#video', 'http://vimeo.com/32071937').code({
+    return Popcorn.vimeo('#video', 'http://vimeo.com/32772167').code({
       start: .1,
       onStart: function() {
         return $('#slider').slider('value', 120);
@@ -321,7 +321,7 @@
           scrollTop: 710
         });
         return $('textarea').animate({
-          height: 500
+          height: 525
         });
       }
     }).code({
@@ -330,14 +330,19 @@
         return new ImageFile('star wars', "" + song + "/star_wars.jpeg");
       }
     }).code({
-      start: 9,
+      start: 8,
       onStart: function() {
         return new ImageFile('bennigans', "" + song + "/bennigans.jpeg");
       }
     }).code({
-      start: 11,
+      start: 9.5,
       onStart: function() {
         return new ImageFile('boba fett', "" + song + "/boba_fett.jpeg");
+      }
+    }).code({
+      start: 12,
+      onStart: function() {
+        return new ImageFile('hesitate', "" + song + "/hesitate.jpeg");
       }
     }).code({
       start: 14,
@@ -360,7 +365,7 @@
         return new ImageFile('yoda', "" + song + "/yoda.jpeg");
       }
     }).code({
-      start: 23,
+      start: 22,
       onStart: function() {
         return new ImageFile('money', "" + song + "/money.png");
       }
@@ -375,7 +380,7 @@
         return new ImageFile('cook', "" + song + "/cook.jpeg");
       }
     }).code({
-      start: 28,
+      start: 27,
       onStart: function() {
         return new ImageFile('hook', "" + song + "/hook.jpeg");
       }
@@ -385,12 +390,12 @@
         return new ImageFile('quick', "" + song + "/quick.png");
       }
     }).code({
-      start: 31,
+      start: 30,
       onStart: function() {
         return new ImageFile('mask', "" + song + "/mask.jpeg");
       }
     }).code({
-      start: 33,
+      start: 32,
       onStart: function() {
         return new ImageFile('detention', "" + song + "/detention.jpeg");
       }
@@ -415,7 +420,7 @@
         return new ImageFile('ship', "" + song + "/ship.jpeg");
       }
     }).code({
-      start: 45,
+      start: 44,
       onStart: function() {
         return new ImageFile('mask', "" + song + "/mask.jpeg");
       }
@@ -426,9 +431,13 @@
         return new ImageFile('boba fett', "" + song + "/boba_fett.jpeg");
       },
       onEnd: function() {
-        $('html, body').animate({
+        return $('html, body').animate({
           scrollTop: 0
         });
+      }
+    }).code({
+      start: 52,
+      onStart: function() {
         return $('textarea').css('height', '');
       }
     });

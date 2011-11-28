@@ -223,7 +223,7 @@ class CheckFlashPlayer
   constructor: ->
     if not swfobject.hasFlashPlayerVersion('11')
       $('#video').html("""
-        <iframe src="http://player.vimeo.com/video/31356476?title=0&byline=0"
+        <iframe src="http://player.vimeo.com/video/32772167"
                 width="560" height="350" frameborder="0" webkitAllowFullScreen
                 allowFullScreen></iframe>
       """)
@@ -240,7 +240,7 @@ do ->
 do ->
   # And, finally, the Popcorn / Vimeo interaction...
   song = '/static/img/song'
-  Popcorn.vimeo('#video', 'http://vimeo.com/32071937')
+  Popcorn.vimeo('#video', 'http://vimeo.com/32772167')
 
   .code(
     start: .1
@@ -254,7 +254,7 @@ do ->
       new ImageFile('delorean', "#{song}/delorean.jpeg")
     onEnd: ->
       $('html, body').animate(scrollTop: 710)
-      $('textarea').animate(height: 500)
+      $('textarea').animate(height: 525)
   )
 
   .code(
@@ -264,15 +264,21 @@ do ->
   )
 
   .code(
-    start: 9
+    start: 8
     onStart: ->
       new ImageFile('bennigans', "#{song}/bennigans.jpeg")
   )
 
   .code(
-    start: 11
+    start: 9.5
     onStart: ->
       new ImageFile('boba fett', "#{song}/boba_fett.jpeg")
+  )
+
+  .code(
+    start: 12
+    onStart: ->
+      new ImageFile('hesitate', "#{song}/hesitate.jpeg")
   )
 
   .code(
@@ -300,7 +306,7 @@ do ->
   )
 
   .code(
-    start: 23
+    start: 22
     onStart: ->
       new ImageFile('money', "#{song}/money.png")
   )
@@ -318,7 +324,7 @@ do ->
   )
 
   .code(
-    start: 28
+    start: 27
     onStart: ->
       new ImageFile('hook', "#{song}/hook.jpeg")
   )
@@ -330,13 +336,13 @@ do ->
   )
 
   .code(
-    start: 31
+    start: 30
     onStart: ->
       new ImageFile('mask', "#{song}/mask.jpeg")
   )
 
   .code(
-    start: 33
+    start: 32
     onStart: ->
       new ImageFile('detention', "#{song}/detention.jpeg")
   )
@@ -366,7 +372,7 @@ do ->
   )
 
   .code(
-    start: 45
+    start: 44
     onStart: ->
       new ImageFile('mask', "#{song}/mask.jpeg")
   )
@@ -377,5 +383,10 @@ do ->
       new ImageFile('boba fett', "#{song}/boba_fett.jpeg")
     onEnd: ->
       $('html, body').animate(scrollTop: 0)
+  )
+
+  .code(
+    start: 52
+    onStart: ->
       $('textarea').css('height', '')
   )
