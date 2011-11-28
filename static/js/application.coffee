@@ -240,32 +240,142 @@ do ->
 do ->
   # And, finally, the Popcorn / Vimeo interaction...
   song = '/static/img/song'
-  Popcorn.vimeo('#video', 'http://vimeo.com/31356476')
+  Popcorn.vimeo('#video', 'http://vimeo.com/32071937')
 
   .code(
-    start: 1, end: 5
+    start: .1
+    onStart: ->
+      $('#slider').slider('value', 120)
+  )
+
+  .code(
+    start: 2, end: 3
     onStart: ->
       new ImageFile('delorean', "#{song}/delorean.jpeg")
-      $('html, body').animate(scrollTop: 710)
-  )
-
-  .code(
-    start: 5, end: 10
-    onStart: ->
-      new ImageFile('delorean', "#{song}/bennigans.jpeg")
-  )
-
-  .code(
-    start: 6, end: 11
-    onStart: ->
-      $('body').css('background', 'red')
-  )
-
-  .code(
-    start: 10, end: 15
-    onStart: ->
-      new ImageFile('delorean', "#{song}/boba_fett.jpeg")
-      $('body').css('background', '')
     onEnd: ->
-      console.log "see ya"
+      $('html, body').animate(scrollTop: 710)
+      $('textarea').animate(height: 500)
+  )
+
+  .code(
+    start: 6
+    onStart: ->
+      new ImageFile('star wars', "#{song}/star_wars.jpeg")
+  )
+
+  .code(
+    start: 9
+    onStart: ->
+      new ImageFile('bennigans', "#{song}/bennigans.jpeg")
+  )
+
+  .code(
+    start: 11
+    onStart: ->
+      new ImageFile('boba fett', "#{song}/boba_fett.jpeg")
+  )
+
+  .code(
+    start: 14
+    onStart: ->
+      new ImageFile('darth vader', "#{song}/darth.jpeg")
+  )
+
+  .code(
+    start: 16
+    onStart: ->
+      new ImageFile('skywalker', "#{song}/skywalker.jpeg")
+  )
+
+  .code(
+    start: 19
+    onStart: ->
+      new ImageFile('han solo', "#{song}/solo.jpeg")
+  )
+
+  .code(
+    start: 21
+    onStart: ->
+      new ImageFile('yoda', "#{song}/yoda.jpeg")
+  )
+
+  .code(
+    start: 23
+    onStart: ->
+      new ImageFile('money', "#{song}/money.png")
+  )
+
+  .code(
+    start: 24
+    onStart: ->
+      new ImageFile('jawas', "#{song}/jawas.jpeg")
+  )
+
+  .code(
+    start: 26
+    onStart: ->
+      new ImageFile('cook', "#{song}/cook.jpeg")
+  )
+
+  .code(
+    start: 28
+    onStart: ->
+      new ImageFile('hook', "#{song}/hook.jpeg")
+  )
+
+  .code(
+    start: 29
+    onStart: ->
+      new ImageFile('quick', "#{song}/quick.png")
+  )
+
+  .code(
+    start: 31
+    onStart: ->
+      new ImageFile('mask', "#{song}/mask.jpeg")
+  )
+
+  .code(
+    start: 33
+    onStart: ->
+      new ImageFile('detention', "#{song}/detention.jpeg")
+  )
+
+  .code(
+    start: 35
+    onStart: ->
+      new ImageFile('jets', "#{song}/jets.jpeg")
+  )
+
+  .code(
+    start: 37
+    onStart: ->
+      new ImageFile('boba fett', "#{song}/boba_fett.jpeg")
+  )
+
+  .code(
+    start: 39
+    onStart: ->
+      new ImageFile('jabba', "#{song}/jabba.jpeg")
+  )
+
+  .code(
+    start: 41
+    onStart: ->
+      new ImageFile('ship', "#{song}/ship.jpeg")
+  )
+
+  .code(
+    start: 45
+    onStart: ->
+      new ImageFile('mask', "#{song}/mask.jpeg")
+  )
+
+  .code(
+    start: 48, end: 50
+    onStart: ->
+      new ImageFile('boba fett', "#{song}/boba_fett.jpeg")
+    onEnd: ->
+      $('html, body').animate(scrollTop: 0)
+      $('textarea').css('height', '')
   )

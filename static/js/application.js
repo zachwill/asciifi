@@ -305,36 +305,131 @@
   (function() {
     var song;
     song = '/static/img/song';
-    return Popcorn.vimeo('#video', 'http://vimeo.com/31356476').code({
-      start: 1,
-      end: 5,
+    return Popcorn.vimeo('#video', 'http://vimeo.com/32071937').code({
+      start: .1,
       onStart: function() {
-        new ImageFile('delorean', "" + song + "/delorean.jpeg");
-        return $('html, body').animate({
+        return $('#slider').slider('value', 120);
+      }
+    }).code({
+      start: 2,
+      end: 3,
+      onStart: function() {
+        return new ImageFile('delorean', "" + song + "/delorean.jpeg");
+      },
+      onEnd: function() {
+        $('html, body').animate({
           scrollTop: 710
+        });
+        return $('textarea').animate({
+          height: 500
         });
       }
     }).code({
-      start: 5,
-      end: 10,
-      onStart: function() {
-        return new ImageFile('delorean', "" + song + "/bennigans.jpeg");
-      }
-    }).code({
       start: 6,
-      end: 11,
       onStart: function() {
-        return $('body').css('background', 'red');
+        return new ImageFile('star wars', "" + song + "/star_wars.jpeg");
       }
     }).code({
-      start: 10,
-      end: 15,
+      start: 9,
       onStart: function() {
-        new ImageFile('delorean', "" + song + "/boba_fett.jpeg");
-        return $('body').css('background', '');
+        return new ImageFile('bennigans', "" + song + "/bennigans.jpeg");
+      }
+    }).code({
+      start: 11,
+      onStart: function() {
+        return new ImageFile('boba fett', "" + song + "/boba_fett.jpeg");
+      }
+    }).code({
+      start: 14,
+      onStart: function() {
+        return new ImageFile('darth vader', "" + song + "/darth.jpeg");
+      }
+    }).code({
+      start: 16,
+      onStart: function() {
+        return new ImageFile('skywalker', "" + song + "/skywalker.jpeg");
+      }
+    }).code({
+      start: 19,
+      onStart: function() {
+        return new ImageFile('han solo', "" + song + "/solo.jpeg");
+      }
+    }).code({
+      start: 21,
+      onStart: function() {
+        return new ImageFile('yoda', "" + song + "/yoda.jpeg");
+      }
+    }).code({
+      start: 23,
+      onStart: function() {
+        return new ImageFile('money', "" + song + "/money.png");
+      }
+    }).code({
+      start: 24,
+      onStart: function() {
+        return new ImageFile('jawas', "" + song + "/jawas.jpeg");
+      }
+    }).code({
+      start: 26,
+      onStart: function() {
+        return new ImageFile('cook', "" + song + "/cook.jpeg");
+      }
+    }).code({
+      start: 28,
+      onStart: function() {
+        return new ImageFile('hook', "" + song + "/hook.jpeg");
+      }
+    }).code({
+      start: 29,
+      onStart: function() {
+        return new ImageFile('quick', "" + song + "/quick.png");
+      }
+    }).code({
+      start: 31,
+      onStart: function() {
+        return new ImageFile('mask', "" + song + "/mask.jpeg");
+      }
+    }).code({
+      start: 33,
+      onStart: function() {
+        return new ImageFile('detention', "" + song + "/detention.jpeg");
+      }
+    }).code({
+      start: 35,
+      onStart: function() {
+        return new ImageFile('jets', "" + song + "/jets.jpeg");
+      }
+    }).code({
+      start: 37,
+      onStart: function() {
+        return new ImageFile('boba fett', "" + song + "/boba_fett.jpeg");
+      }
+    }).code({
+      start: 39,
+      onStart: function() {
+        return new ImageFile('jabba', "" + song + "/jabba.jpeg");
+      }
+    }).code({
+      start: 41,
+      onStart: function() {
+        return new ImageFile('ship', "" + song + "/ship.jpeg");
+      }
+    }).code({
+      start: 45,
+      onStart: function() {
+        return new ImageFile('mask', "" + song + "/mask.jpeg");
+      }
+    }).code({
+      start: 48,
+      end: 50,
+      onStart: function() {
+        return new ImageFile('boba fett', "" + song + "/boba_fett.jpeg");
       },
       onEnd: function() {
-        return console.log("see ya");
+        $('html, body').animate({
+          scrollTop: 0
+        });
+        return $('textarea').css('height', '');
       }
     });
   })();
