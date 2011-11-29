@@ -315,8 +315,7 @@
     new DropZone('.dropzone');
     new Upload('#files');
     new LinkButton('.link');
-    new Setup;
-    return new CheckFlashPlayer;
+    return new Setup;
   })();
   (function() {
     var song;

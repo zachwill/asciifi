@@ -247,7 +247,6 @@ do ->
   new Upload('#files')
   new LinkButton('.link')
   new Setup
-  new CheckFlashPlayer
 
 
 do ->
